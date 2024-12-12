@@ -20,12 +20,11 @@ def add_tickers(db_session: Session, ticker_names: list[str]):
 
 
 def add_tickers_info(db_session: Session, tickers_info: list[TickerInfo]):
-    try:
-        delete(TickerInfo)
-        db_session.bulk_save_objects(tickers_info)
-        db_session.commit()
-    except Exception as e:
-        db_session.rollback()
+    db_session.bulk_save_objects(tickers_info)
+
+
+def delete_tickers_info(db_session: Session):
+    db_session.execute(delete(TickerInfo))
 
 
 def get_all_tickers(db_session: Session) -> list[Ticker]:
