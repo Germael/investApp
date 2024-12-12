@@ -37,7 +37,7 @@ def parse_sp500_tickers(
         if ticker_data:
             ticker_info_list.append(
                 TickerInfo(
-                    ticker_id=ticker.id,
+                    ticker_name=ticker.name,
                     open=ticker_data.get("open"),
                     previous_close=ticker_data.get("previousClose"),
                     day_low=ticker_data.get("dayLow"),

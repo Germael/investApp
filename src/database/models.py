@@ -17,7 +17,7 @@ class TickerInfo(Base):
     __tablename__ = "ticker_info"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    ticker_id = Column(Integer, ForeignKey('ticker.id'), nullable=False)  # Foreign key referencing Ticker.id
+    ticker_name = Column(String, nullable=False)
     open = Column(Float)
     previous_close = Column(Float)
     day_low = Column(Float)
