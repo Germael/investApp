@@ -8,7 +8,6 @@ from database.models import TickerInfo
 from database.query import add_tickers, get_all_tickers, add_tickers_info
 from repository.bot import Bot
 from repository.stock_scrapper import StockScrapper
-from repository.utils import camel_to_snake
 
 parse_router = APIRouter()
 

@@ -1,16 +1,17 @@
+from os import getenv
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from database.models import Base, Ticker
+from database.models import Base
 
-# DATABASE_URL = "sqlite:///db/invest.db"
-DATABASE_URL = "sqlite:///invest.db"
+DATABASE_URL = getenv("DATABASE_URL")
 
 # Create an engine to connect to the SQLite database
 engine = create_engine(DATABASE_URL, echo=True)
 
 # Create the database tables
-# Base.metadata.create_all(engine)
+Base.metadata.create_all(engine)
 
 
 def get_session() -> Session:
