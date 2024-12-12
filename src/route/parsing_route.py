@@ -9,10 +9,10 @@ from database.query import add_tickers, get_all_tickers, add_tickers_info, delet
 from repository.bot import Bot
 from repository.stock_scrapper import StockScrapper
 
-parse_router = APIRouter()
+parse_router = APIRouter(prefix="/parse")
 
 
-@parse_router.get("/parse-sp500-tickers")
+@parse_router.get("/sp500-tickers")
 async def parse_sp500_tickers(
         scraper: Annotated[StockScrapper, Depends()],
         db_session: Annotated[Session, Depends(get_session)],
@@ -24,7 +24,7 @@ async def parse_sp500_tickers(
     return tickers
 
 
-@parse_router.get("/parse-tickers-info")
+@parse_router.get("/tickers-info")
 def parse_sp500_tickers(
         scraper: Annotated[StockScrapper, Depends()],
         db_session: Annotated[Session, Depends(get_session)]

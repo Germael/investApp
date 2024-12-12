@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, Session
 
 from database.models import Base
 
-DATABASE_URL = getenv("DATABASE_URL")
+DATABASE_URL = getenv("DATABASE_URL", "sqlite:///invest.db")
 
 # Create an engine to connect to the SQLite database
 engine = create_engine(DATABASE_URL, echo=True)
