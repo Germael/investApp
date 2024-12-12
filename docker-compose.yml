@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  app:
+    image: my-image-name:latest
+    volumes:
+      - invest:/app/db
+
+volumes:
+  invest:
+    external: true
