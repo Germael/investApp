@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import delete, select, Sequence
+from sqlalchemy import delete, select, asc, desc
 
 from database.models import Ticker, TickerInfo
 
@@ -29,5 +29,23 @@ def delete_tickers_info(db_session: Session):
 
 def get_all_tickers(db_session: Session) -> list[Ticker]:
     tickers_response = db_session.execute(select(Ticker))
+    tickers = tickers_response.scalars().all()
+    return list(tickers)
+
+
+def get_info_by_field(db_session: Session, field: str, order: str = "DESC", limit: int = 10) -> list[TickerInfo]:
+    # Determine the sorting order (ASC or DESC)
+    sorting_order = desc if order.upper() == "DESC" else asc
+
+    # Get the field dynamically from the TickerInfo model
+    field_column = getattr(TickerInfo, field, None)
+    if field_column is None:
+        raise ValueError(f"Invalid field '{field}' for sorting.")
+
+    # Build the query with ordering
+    query = select(TickerInfo).where(field_column.isnot(None)).order_by(sorting_order(field_column)).limit(limit)
+
+    # Execute the query and fetch results
+    tickers_response = db_session.execute(query)
     tickers = tickers_response.scalars().all()
     return list(tickers)
