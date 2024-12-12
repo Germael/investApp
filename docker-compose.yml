@@ -4,7 +4,12 @@ services:
     image: my-image-name:latest
     volumes:
       - invest:/app/db
-
+    ports:
+      - "8003:8003"
+    environment:
+      - DATABASE_URL=sqlite:///db/invest.db
+      - TELEGRAM_BOT_TOKEN=<token>
+      - STOCK_CHANNEL_ID=<chat-id>
 volumes:
   invest:
     external: true
