@@ -1,7 +1,7 @@
-version: '0.0.1'
+version: '0.0.2'
 services:
   app:
-    image: my-image-name:latest
+    image: germael/invest-app:latest
     volumes:
       - invest:/app/db
     ports:
