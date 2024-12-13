@@ -9,7 +9,7 @@ from database.query import add_tickers, get_all_tickers, add_tickers_info, delet
 from repository.bot import Bot
 from repository.stock_scrapper import StockScrapper
 
-parse_router = APIRouter(prefix="/parse")
+parse_router = APIRouter(prefix="/parse", tags=["parse"])
 
 
 @parse_router.get("/sp500-tickers")
@@ -55,6 +55,7 @@ def parse_sp500_tickers(
                     target_high_price=ticker_data.get("targetHighPrice"),
                     target_low_price=ticker_data.get("targetLowPrice"),
                     target_median_price=ticker_data.get("targetMedianPrice"),
+                    target_mean_price=ticker_data.get("targetMeanPrice"),
                     recommendation_key=ticker_data.get("recommendationKey"),
                     opinion_num=ticker_data.get("numberOfAnalystOpinions"),
                     total_cash=ticker_data.get("totalCash"),
