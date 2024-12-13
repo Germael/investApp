@@ -18,6 +18,5 @@ class InfoProvider:
             message += (f"Company: {ticker_info.short_name}\n"
                         f"Ticker: {ticker_info.ticker_name}\n"
                         f"Price change: {ticker_info.current_price_change:.2f}%\n"
-                        f"Current price: {ticker_info.current_price}\n"
                         f"Recommendation: {ticker_info.recommendation_key}\n\n")
         return message
