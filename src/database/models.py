@@ -34,6 +34,7 @@ class TickerInfo(Base):
     target_high_price = Column(Float)
     target_low_price = Column(Float)
     target_median_price = Column(Float)
+    target_mean_price = Column(Float)
     recommendation_key = Column(String)
     opinion_num = Column(Integer)
     total_cash = Column(Integer)

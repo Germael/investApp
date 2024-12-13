@@ -29,7 +29,7 @@ COPY src /app/src
 RUN mkdir db
 
 # Expose port for the FastAPI application
-EXPOSE 8003
+EXPOSE 49161
 
 # Start the FastAPI application using uvicorn
-CMD ["poetry", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8003"]
+CMD ["poetry", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "49161"]
