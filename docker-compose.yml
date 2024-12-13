@@ -1,11 +1,11 @@
-version: '0.0.1'
+version: '0.0.2'
 services:
   app:
-    image: my-image-name:latest
+    image: germael/invest-app:latest
     volumes:
       - invest:/app/db
     ports:
-      - "8003:8003"
+      - "49161:49161"
     environment:
       - DATABASE_URL=sqlite:///db/invest.db
       - TELEGRAM_BOT_TOKEN=<token>

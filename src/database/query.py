@@ -27,6 +27,10 @@ def delete_tickers_info(db_session: Session):
     db_session.execute(delete(TickerInfo))
 
 
+def get_ticker_data(db_session: Session, ticker: str):
+    ticker_info = db_session.query(TickerInfo).where(TickerInfo.ticker_name == ticker.upper()).first()
+    return ticker_info
+
 def get_all_tickers(db_session: Session) -> list[Ticker]:
     tickers_response = db_session.execute(select(Ticker))
     tickers = tickers_response.scalars().all()

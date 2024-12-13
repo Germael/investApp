@@ -9,7 +9,7 @@ from database.query import add_tickers, get_all_tickers, add_tickers_info, delet
 from repository.bot import Bot
 from repository.stock_scrapper import StockScrapper
 
-parse_router = APIRouter(prefix="/parse")
+parse_router = APIRouter(prefix="/parse", tags=["parse"])
 
 
 @parse_router.get("/sp500-tickers")
@@ -20,7 +20,7 @@ async def parse_sp500_tickers(
 ) -> list[str]:
     tickers = scraper.get_sp500_tickers()
     add_tickers(db_session, tickers)
-    await bot.send_to_telegram(f"S&P500 tickers parsed: {len(tickers)}")
+    # await bot.send_to_telegram(f"S&P500 tickers parsed: {len(tickers)}")
     return tickers
 
 
@@ -55,7 +55,16 @@ def parse_sp500_tickers(
                     target_high_price=ticker_data.get("targetHighPrice"),
                     target_low_price=ticker_data.get("targetLowPrice"),
                     target_median_price=ticker_data.get("targetMedianPrice"),
+                    target_mean_price=ticker_data.get("targetMeanPrice"),
                     recommendation_key=ticker_data.get("recommendationKey"),
+                    opinion_num=ticker_data.get("numberOfAnalystOpinions"),
+                    total_cash=ticker_data.get("totalCash"),
+                    total_cash_per_share=ticker_data.get("totalCashPerShare"),
+                    total_debt=ticker_data.get("totalDebt"),
+                    total_revenue=ticker_data.get("totalRevenue"),
+                    revenue_per_share=ticker_data.get("revenuePerShare"),
+                    free_cash_flow=ticker_data.get("freeCashflow"),
+                    operating_cash_flow=ticker_data.get("operatingCashflow"),
                 )
                 if ticker_info.previous_close and ticker_info.current_price:
                     ticker_info.current_price_change = ((
