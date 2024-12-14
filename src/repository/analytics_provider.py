@@ -25,6 +25,8 @@ class AnalyticsProvider:
             a_total_liabilities = self._get_frame_data(ticker_data.balance_sheet,
                                                        "Total Liabilities Net Minority Interest")
 
+            a_free_cash_flow = self._get_frame_data(ticker_data.cash_flow, "Free Cash Flow")
+
             # Get quarterly revenue data
             q_revenue_data = self._get_frame_data(ticker_data.quarterly_financials, "Total Revenue")
 
@@ -35,9 +37,12 @@ class AnalyticsProvider:
             q_total_liabilities = self._get_frame_data(ticker_data.quarterly_balance_sheet,
                                                        "Total Liabilities Net Minority Interest")
 
+            q_free_cash_flow = self._get_frame_data(ticker_data.quarterly_cash_flow, "Free Cash Flow")
+
             # Other
 
-            # shares_outstanding = ticker_data.info.get("sharesOutstanding")
+            pe_ratio = ticker_data.info.get('trailingPE')
+            forward_pe = ticker_data.info.get('forwardPE')
 
         return None
 
