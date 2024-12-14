@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from route.analytics_route import analytics_route
 from route.info_route import info_router
 from route.parsing_route import parse_router
 
@@ -27,6 +28,7 @@ async def lifespan(fast_app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
+app.include_router(analytics_route)
 app.include_router(info_router)
 app.include_router(parse_router)
 

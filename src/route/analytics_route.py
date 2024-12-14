@@ -14,4 +14,4 @@ async def get_ticker_analytics(
         scraper: Annotated[StockScrapper, Depends()],
         ticker: str,
 ):
-    return provider.get_analytics_message(scraper, ticker)
+    return provider.get_analytics(scraper, ticker)
