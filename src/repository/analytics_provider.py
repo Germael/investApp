@@ -18,6 +18,9 @@ class AnalyticsProvider:
             # Get annual revenue data
             a_revenue_data = self._get_frame_data(ticker_data.financials, "Total Revenue")
 
+            a_gross_profit = self._get_frame_data(ticker_data.financials, "Gross Profit")
+            a_net_income = self._get_frame_data(ticker_data.financials, "Net Income")
+
             a_total_assets = self._get_frame_data(ticker_data.balance_sheet, "Total Assets")
             a_total_liabilities = self._get_frame_data(ticker_data.balance_sheet,
                                                        "Total Liabilities Net Minority Interest")
@@ -25,9 +28,16 @@ class AnalyticsProvider:
             # Get quarterly revenue data
             q_revenue_data = self._get_frame_data(ticker_data.quarterly_financials, "Total Revenue")
 
+            q_gross_profit = self._get_frame_data(ticker_data.quarterly_financials, "Gross Profit")
+            q_net_income = self._get_frame_data(ticker_data.quarterly_financials, "Net Income")
+
             q_total_assets = self._get_frame_data(ticker_data.quarterly_balance_sheet, "Total Assets")
             q_total_liabilities = self._get_frame_data(ticker_data.quarterly_balance_sheet,
                                                        "Total Liabilities Net Minority Interest")
+
+            # Other
+
+            # shares_outstanding = ticker_data.info.get("sharesOutstanding")
 
         return None
 
