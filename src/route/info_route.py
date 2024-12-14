@@ -26,4 +26,5 @@ async def get_ticker_information(
         ticker: str,
 ):
     message = info_provider.get_ticker_info_message(ticker)
-    await bot.send_to_telegram(message)
+    # await bot.send_to_telegram(message)
+    return message
