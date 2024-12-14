@@ -8,10 +8,12 @@ class StockScrapper:
     def __init__(self):
         pass
 
-    def get_ticker_info(self, ticker: str) -> dict | None:
+    def get_ticker_info(self, ticker: str) -> yf.Ticker | None:
         try:
-            stock = yf.Ticker(ticker)
-            return stock.info
+            ticker_data = yf.Ticker(ticker)
+            if ticker_data:
+                return ticker_data
+            return None
         except Exception as e:
             return None
 
