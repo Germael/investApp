@@ -1,5 +1,3 @@
-from time import sleep
-
 import yfinance as yf
 import requests
 
@@ -39,9 +37,3 @@ class StockScrapper:
                 tickers.append(ticker)
 
         return tickers
-
-
-if __name__ == "__main__":
-    # Example usage
-    top_10_tickers = StockScrapper().get_top_tickers_by_market_cap(10)
-    print(top_10_tickers)

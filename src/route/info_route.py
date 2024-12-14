@@ -22,9 +22,6 @@ async def get_overview(
 @info_router.get("/overview/{ticker}")
 async def get_ticker_information(
         info_provider: Annotated[InfoProvider, Depends()],
-        bot: Annotated[Bot, Depends()],
         ticker: str,
 ):
-    message = info_provider.get_ticker_info_message(ticker)
-    # await bot.send_to_telegram(message)
-    return message
+    return info_provider.get_ticker_info_message(ticker)

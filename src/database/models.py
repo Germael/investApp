@@ -44,5 +44,3 @@ class TickerInfo(Base):
     revenue_per_share = Column(Float)
     free_cash_flow = Column(Integer)
     operating_cash_flow = Column(Integer)
-
-
