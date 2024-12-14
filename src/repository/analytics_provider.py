@@ -16,20 +16,28 @@ class AnalyticsProvider:
 
         if ticker_data:
             # Get annual revenue data
-            a_revenue_data = self._get_revenue_data(ticker_data.financials)
+            a_revenue_data = self._get_frame_data(ticker_data.financials, "Total Revenue")
+
+            a_total_assets = self._get_frame_data(ticker_data.balance_sheet, "Total Assets")
+            a_total_liabilities = self._get_frame_data(ticker_data.balance_sheet,
+                                                       "Total Liabilities Net Minority Interest")
 
             # Get quarterly revenue data
-            q_revenue_data = self._get_revenue_data(ticker_data.quarterly_financials)
+            q_revenue_data = self._get_frame_data(ticker_data.quarterly_financials, "Total Revenue")
+
+            q_total_assets = self._get_frame_data(ticker_data.quarterly_balance_sheet, "Total Assets")
+            q_total_liabilities = self._get_frame_data(ticker_data.quarterly_balance_sheet,
+                                                       "Total Liabilities Net Minority Interest")
 
         return None
 
-    def _get_revenue_data(self, financials: pd.DataFrame) -> dict | None:
+    def _get_frame_data(self, frame: pd.DataFrame, field_name: str) -> dict | None:
         # Check if 'Total Revenue' exists in the DataFrame index
-        if 'Total Revenue' not in financials.index:
+        if field_name not in frame.index:
             return None
 
         # Extract the 'Total Revenue' data from the DataFrame
-        revenue_list = financials.loc['Total Revenue']
+        revenue_list = frame.loc[field_name]
 
         # Filter out any NaN values and sort by date
         revenue_dict = {date: revenue for date, revenue in revenue_list.items() if pd.notna(revenue)}
@@ -39,13 +47,13 @@ class AnalyticsProvider:
         extended_data = {}
 
         # Calculate price change (if applicable) and store the data
-        for i, (current_time, current_price) in enumerate(revenue_dict.items()):
+        for i, (current_time, current_value) in enumerate(revenue_dict.items()):
             # Calculate price change for all entries except the first
-            change = None if i == 0 else price_change(current_price, list(revenue_dict.values())[i - 1])
+            change = None if i == 0 else price_change(current_value, list(revenue_dict.values())[i - 1])
 
             # Add the data to the extended dictionary
             extended_data[current_time] = {
-                "price": current_price,
+                "value": current_value,
                 "change": change
             }
 
