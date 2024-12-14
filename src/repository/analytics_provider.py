@@ -15,34 +15,43 @@ class AnalyticsProvider:
         ticker_data: Ticker = scraper.get_ticker_info(ticker)
 
         if ticker_data:
-            # Get annual revenue data
-            a_revenue_data = self._get_frame_data(ticker_data.financials, "Total Revenue")
+            response = {
+                "annual": {},
+                "quarterly": {},
+                "other": {}
+            }
 
-            a_gross_profit = self._get_frame_data(ticker_data.financials, "Gross Profit")
-            a_net_income = self._get_frame_data(ticker_data.financials, "Net Income")
+            # Annual
+            response['annual']['revenue'] = self._get_frame_data(ticker_data.financials, "Total Revenue")
 
-            a_total_assets = self._get_frame_data(ticker_data.balance_sheet, "Total Assets")
-            a_total_liabilities = self._get_frame_data(ticker_data.balance_sheet,
+            response['annual']['gross_profit'] = self._get_frame_data(ticker_data.financials, "Gross Profit")
+            response['annual']['net_income'] = self._get_frame_data(ticker_data.financials, "Net Income")
+
+            response['annual']['total_assets'] = self._get_frame_data(ticker_data.balance_sheet, "Total Assets")
+            response['annual']['total_liabilities'] = self._get_frame_data(ticker_data.balance_sheet,
                                                        "Total Liabilities Net Minority Interest")
 
-            a_free_cash_flow = self._get_frame_data(ticker_data.cash_flow, "Free Cash Flow")
+            response['annual']['free_cash_flow'] = self._get_frame_data(ticker_data.cash_flow, "Free Cash Flow")
 
-            # Get quarterly revenue data
-            q_revenue_data = self._get_frame_data(ticker_data.quarterly_financials, "Total Revenue")
 
-            q_gross_profit = self._get_frame_data(ticker_data.quarterly_financials, "Gross Profit")
-            q_net_income = self._get_frame_data(ticker_data.quarterly_financials, "Net Income")
+            # Quarterly
+            response['quarterly']['revenue'] = self._get_frame_data(ticker_data.quarterly_financials, "Total Revenue")
 
-            q_total_assets = self._get_frame_data(ticker_data.quarterly_balance_sheet, "Total Assets")
-            q_total_liabilities = self._get_frame_data(ticker_data.quarterly_balance_sheet,
+            response['quarterly']['gross_profit'] = self._get_frame_data(ticker_data.quarterly_financials, "Gross Profit")
+            response['quarterly']['net_income'] = self._get_frame_data(ticker_data.quarterly_financials, "Net Income")
+
+            response['quarterly']['total_assets'] = self._get_frame_data(ticker_data.quarterly_balance_sheet, "Total Assets")
+            response['quarterly']['total_liabilities'] = self._get_frame_data(ticker_data.quarterly_balance_sheet,
                                                        "Total Liabilities Net Minority Interest")
 
-            q_free_cash_flow = self._get_frame_data(ticker_data.quarterly_cash_flow, "Free Cash Flow")
+            response['quarterly']['free_cash_flow'] = self._get_frame_data(ticker_data.quarterly_cash_flow, "Free Cash Flow")
+
 
             # Other
+            response['other']['pe_ratio'] = ticker_data.info.get('trailingPE')
+            response['other']['forward_pe'] = ticker_data.info.get('forwardPE')
 
-            pe_ratio = ticker_data.info.get('trailingPE')
-            forward_pe = ticker_data.info.get('forwardPE')
+            return response
 
         return None
 
